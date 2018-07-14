@@ -1,0 +1,22 @@
+php7:
+    build: .
+    dockerfile: Dockerfile
+    volumes:
+        - ~/hd/Projects/server:/var/www/html
+        - ~/hd/Projects/server/config/apache2/apache2.conf:/etc/apache2/conf-enabled/apache2.conf
+        - ~/hd/Projects/server/config/apache2/hosts.conf:/etc/apache2/sites-enabled/hosts.conf
+    ports:
+        - "80:80"
+        - "9000:9000"
+    links:
+        - mysql
+
+mysql:
+    image: mysql
+    ports:
+        - "3306:3306"
+    environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_USER=root
+    volumes: 
+        - ./etc/mysql:/docker-entrypoint-initdb.d
