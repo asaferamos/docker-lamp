@@ -20,3 +20,4 @@ mysql:
         - MYSQL_USER=root
     volumes: 
         - ./etc/mysql:/docker-entrypoint-initdb.d
+        - ./data:/var/lib/mysql
