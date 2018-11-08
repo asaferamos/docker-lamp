@@ -1,2 +1,13 @@
 data/*
 !data/.keep
+logs/*
+!logs/.keep
+*.log
+
+*.conf
+config/mysql/*
+!config/mysql/.keep
+
+*.env
+
+.DS_Store

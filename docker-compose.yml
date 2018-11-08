@@ -2,12 +2,11 @@ php7:
     build: .
     dockerfile: Dockerfile
     volumes:
-        - ~/hd/Projects/server:/var/www/html
-        - ~/hd/Projects/server/config/apache2/apache2.conf:/etc/apache2/conf-enabled/apache2.conf
-        - ~/hd/Projects/server/config/apache2/hosts.conf:/etc/apache2/sites-enabled/hosts.conf
+        - ./logs/apache:/var/log/apache2/
+        - ${WWWFOLDER}:/var/www/html
+        - ./config/apache2/vhosts/:/etc/apache2/sites-enabled/
     ports:
         - "80:80"
-        - "9000:9000"
     links:
         - mysql
 
@@ -19,5 +18,7 @@ mysql:
         - MYSQL_ROOT_PASSWORD=root
         - MYSQL_USER=root
     volumes: 
+        - ./config/mysql/mysql.cnf:/etc/mysql/mysql.conf.d/mysql.cnf
+        - ./logs/mysql:/var/log/mysql/
         - ./etc/mysql:/docker-entrypoint-initdb.d
         - ./data:/var/lib/mysql
