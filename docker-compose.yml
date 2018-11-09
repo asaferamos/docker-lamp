@@ -3,10 +3,12 @@ php7:
     dockerfile: Dockerfile
     volumes:
         - ./logs/apache:/var/log/apache2/
+        - ./logs/letsencrypt:/var/log/letsencrypt/
         - ${WWWFOLDER}:/var/www/html
         - ./config/apache2/vhosts/:/etc/apache2/sites-enabled/
     ports:
         - "80:80"
+        - "443:433"
     links:
         - mysql
 

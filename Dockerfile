@@ -45,13 +45,20 @@ RUN apt-get install -y \
 	php7.0-tidy \
 	php7.0-xmlrpc \
 	php7.0-xsl \
-	php7.0-zip \
-	vim
+	php7.0-zip
 RUN apt-get install apache2 libapache2-mod-php7.0 -y
 RUN apt-get install mariadb-common mariadb-server mariadb-client -y
 RUN apt-get install postfix -y
 RUN apt-get install git nodejs npm composer nano tree vim curl ftp -y
 RUN npm install -g bower grunt-cli gulp
+
+RUN apt-get update -qq
+RUN apt-get install software-properties-common -y
+RUN add-apt-repository ppa:certbot/certbot -y
+RUN apt-get update -qq
+RUN apt-get install -y \
+	python-certbot-apache \
+	letsencrypt
 
 ENV LOG_STDOUT **Boolean**
 ENV LOG_STDERR **Boolean**
