@@ -30,20 +30,13 @@ RUN docker-php-ext-configure bcmath --enable-bcmath \
     --with-freetype-dir=/usr/include/freetype2 && \
     docker-php-ext-install gd
 
-
-
-# RUN apt-get update -qq
-
-# RUN add-apt-repository ppa:certbot/certbot -y
-# RUN apt-get update -qq
-# RUN apt-get install -y \
-# 	python-certbot-apache \
-# 	letsencrypt
-
 COPY run-lamp.sh /usr/sbin/
 
 RUN a2enmod rewrite
 RUN chmod +x /usr/sbin/run-lamp.sh
 RUN chown -R www-data:www-data /var/www/html
+
+RUN git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
+RUN /./opt/letsencrypt/letsencrypt-auto --install-only
 
 CMD ["/usr/sbin/run-lamp.sh"]
