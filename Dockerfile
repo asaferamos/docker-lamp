@@ -36,6 +36,10 @@ RUN a2enmod rewrite
 RUN chmod +x /usr/sbin/run-lamp.sh
 RUN chown -R www-data:www-data /var/www/html
 
+RUN curl -sS https://getcomposer.org/installer | php -- \
+    --install-dir=/usr/bin \
+    --filename=composer
+
 RUN git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
 RUN /./opt/letsencrypt/letsencrypt-auto --install-only
 
