@@ -8,7 +8,7 @@ php7:
         - ./config/apache2/vhosts/:/etc/apache2/sites-enabled/
     ports:
         - "80:80"
-        - "443:433"
+        - "443:443"
     links:
         - mysql
 
