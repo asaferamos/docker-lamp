@@ -3,6 +3,7 @@ data/*
 logs/*
 !logs/.keep
 *.log
+tmp/*
 
 *.conf
 config/mysql/*
