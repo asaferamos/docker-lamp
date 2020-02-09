@@ -10,7 +10,8 @@ config/mysql/*
 !config/mysql/.keep
 config/apache2/*
 !config/apache2/.keep
-
+config/letsencrypt/*
+!config/letsencrypt/.keep
 *.env
 
 .DS_Store
