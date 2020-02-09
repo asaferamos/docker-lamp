@@ -7,6 +7,8 @@ logs/*
 *.conf
 config/mysql/*
 !config/mysql/.keep
+config/apache2/*
+!config/apache2/.keep
 
 *.env
 
