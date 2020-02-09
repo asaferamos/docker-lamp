@@ -2,18 +2,22 @@ FROM php:7.1-apache
 
 RUN apt-get update && apt-get install -y zlib1g-dev libicu-dev g++ \
     curl \
-	libfreetype6-dev \
-	libpng-dev \
+    libmemcached-dev \
+    libpq-dev \
+    libfreetype6-dev \
+    libpng-dev \
     libmcrypt-dev \
-	libjpeg62-turbo-dev \
+    libjpeg62-turbo-dev \
     curl \
     git \
-  && rm -rf /var/lib/apt/lists/*
-
+    libxml2-dev \
+    && rm -rf /var/lib/apt/lists/*
+RUN pecl install memcached
 RUN docker-php-ext-configure bcmath --enable-bcmath \
     && docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql \
     && docker-php-ext-configure mbstring --enable-mbstring \
+    && docker-php-ext-install soap \
     && docker-php-ext-install \
         bcmath \
         intl \
@@ -22,6 +26,7 @@ RUN docker-php-ext-configure bcmath --enable-bcmath \
         mysqli \
         pcntl \
         pdo_mysql \
+        pdo_pgsql \
         sockets \
         zip \
   && docker-php-ext-configure gd \
@@ -42,5 +47,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 
 RUN git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
 RUN /./opt/letsencrypt/letsencrypt-auto --install-only
+
+# @TODO
+# habilitar o mod_ssl do apache
+# copiar o /opt/letsencrypt/certbot-apache/certbot_apache/options-ssl-apache.conf  para /etc/letsencrypt
 
 CMD ["/usr/sbin/run-lamp.sh"]
